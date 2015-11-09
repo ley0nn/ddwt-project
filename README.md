@@ -1,1 +1,5 @@
-Group 08\nLeon Graumans - S2548798\nKamil Zukowski - S\nLuuk Looijenga - S\nTomer Gabay - S
+Group 08
+Leon Graumans - S2548798
+Kamil Zukowski - S
+Luuk Looijenga - S
+Tomer Gabay - S
