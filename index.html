@@ -58,70 +58,273 @@
 </nav>
 
 <div class="jumbotron">
-  <div class="container">
-  <h1>Welcome on the Poar Neem'n Movie Database!</h1>
-  <p>Dit is een random tekst.</p>
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">View movies</a></p>
-</div>
+    <div class="container">
+        <h1>Welcome on the Poar Neem'n Movie Database!</h1>
+        <p>Dit is een random tekst.</p>
+        <p><a class="btn btn-primary btn-lg" href="#movielist" role="button">View movies</a></p>
+    </div>
 </div>
 
-<div class="row">
-  <div class="container">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="img/movie.jpg" alt="moviename">
-      <div class="caption">
-        <h3>Movie 1</h3>
-        <p>Lorem ipsum bla bla bla</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button 1</a> <a href="#" class="btn btn-default" role="button">Button 2</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="img/movie.jpg" alt="moviename">
-      <div class="caption">
-        <h3>Movie 2</h3>
-        <p>Lorem ipsum bla bla bla</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button 1</a> <a href="#" class="btn btn-default" role="button">Button 2</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="img/movie.jpg" alt="moviename">
-      <div class="caption">
-        <h3>Movie 3</h3>
-        <p>Lorem ipsum bla bla bla</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button 1</a> <a href="#" class="btn btn-default" role="button">Button 2</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<!--
+<div id="movielist"></div>
+
 <div class="container">
-    <div class="row col-centered">
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
-        <div class="col-md-3"><img src="img/movie.jpg"></div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="img/movie.jpg" alt="moviename" data-toggle="modal" data-target="#myModal">
+                <div class="caption">
+                    <h3>Movie 1</h3>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="img/movie.jpg" class="img-responsive">
+                            <h1>Movie</h1>
+                            <p>Lorem Ipsum</p>
+                            <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
--->
+
+
+
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/slide.js"></script>
+    <script type="text/javascript" src="image_enlarge/slide.js"></script>
 </body>
 </html>

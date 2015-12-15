@@ -4,3 +4,15 @@
     float: none;
     margin: 0 auto;
 }
+
+#movielist{
+	margin: 0 auto;
+}
+
+.caption h3 {
+	text-align: center;
+}
+
+.modal-body img {
+	margin: 0 auto;
+}
