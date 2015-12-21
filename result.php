@@ -33,7 +33,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.php">Movies <span class="sr-only">(current)</span></a></li>
+        <li><a href="index.php">Movies</a></li>
         <li><a href="users.php">Users</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search" method="post" action="result.php" id="searchform">
@@ -43,7 +43,7 @@
         <button type="submit" name="submit" value="Search" class="btn btn-default">Search</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Watchlist <span class="badge">4</span></a></li>
+        <li><a href="#">Watchlist</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -58,58 +58,66 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Header</h1>
-        <p>Tekst.</p>
-        <p><a class="btn btn-primary btn-lg" href="#movielist" role="button">View movies</a></p>
-        <div id="movielist"></div>
-    </div>
-</div>
-
 <?
 include("config.ini.php");
 
+
+$search=$_POST['name']; 
+echo ($name);
+
 // get movies
-$m_query = "SELECT * FROM `movie_collection` order by title ";
-$movie = mysql_query($m_query);
+$m_query = "SELECT * FROM `movie_collection` 
+    WHERE title COLLATE UTF8_GENERAL_CI LIKE '%{$search}%' 
+    OR genre COLLATE UTF8_GENERAL_CI LIKE '%{$search}%' 
+    OR director COLLATE UTF8_GENERAL_CI LIKE '%{$search}%' 
+    OR year COLLATE UTF8_GENERAL_CI LIKE '%{$search}%' 
+    order by title";
+$movie = mysql_query($m_query, $con);
 $movie_array = array();
 
 while($row = mysql_fetch_array($movie)) {
     $movie_array[] = array('name'=>$row['title'], 'release'=>$row['year'], 'genre'=>$row['genre'], 'director'=>$row['director'], 'plot'=>$row['plot'], 'imgurl'=>$row['poster'],);
 } ?> 
 
+<div class="jumbotron">
+    <div class="container" id="searchresults">
+        <p>Results for: <?=$search?>.</p>
+        <p><a class="btn btn-primary btn-lg" href="index.php#movielist" role="button">All movies</a></p>
+    </div>
+</div>
+
 <div class="container"> 
 
 <?
-$count = 0;
+$c = 0;
+
 foreach ($movie_array as $i) { 
-    if ($count % 4 == 0) {
+    if ($c % 4 == 0) {
         echo "<div class=row>";
-    } 
-    //<img src="'.$i['imgurl'].'" />
-    //($i['imgurl']) 
-    $darkknight = "img/darkknight.jpg";
-    ?>
+    }
+    //$test = "http://ia.media-imdb.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_SX300.jpg";
+    //$test = $i['imgurl']; 
+    $test = "/img/darkknight.jpg" ?>
+
     <div class="col-sm-3">
-        <div class="thumbnail" data-toggle="modal" data-target="#myModal<?=($count)?>">
+        <div class="thumbnail" data-toggle="modal" data-target="#myModal<? echo($c)?>">
             <? if($row->poster == "N/A"){
                 echo '<img src="http://entertainment.ie/movie_trailers/trailers/flash/posterPlaceholder.jpg">'; 
             } else {
-                echo '<img src="'.$darkknight.'" />';
+                echo '<img src="img/darkknight.jpg">';
             } ?>
-            <div class="caption"><?= ($i['name']) ?></div>
+            <div class="caption"><?php echo($i['name']) ?></div>
         </div>
-        <div id="myModal<?=($count)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="myModal<? echo($c)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img src="<?= ($darkknight) ?>" class="img-responsive"/>
-                        <h1><?= ($i['name']) ?></h1>
-                        <p>Release: <?= ($i['release']) ?>
-                        <br>Genre: <?= ($i['genre']) ?>
-                        <br>Director: <?= ($i['director']) ?>
-                        <br><br><?= ($i['plot']) ?></p>
+                        <img src="img/darkknight.jpg" class="img-responsive"/>
+                        <h1><?php echo($i['name']) ?></h1>
+                        <p>Release: <?php echo($i['release']) ?>
+                        <br>Genre: <?php echo($i['genre']) ?>
+                        <br>Director: <?php echo($i['director']) ?>
+                        <br><br><?php echo($i['plot']) ?></p>
                         <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
                     </div>
                 </div>
@@ -117,10 +125,12 @@ foreach ($movie_array as $i) {
         </div>
     </div>
     <? 
-    $count ++;
-    if ($count % 4 == 0) {
+    $c ++;
+    if ($c % 4 == 0) {
         echo "</div>";
     } 
+
+
 } ?>
 </div>
 
