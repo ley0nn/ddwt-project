@@ -1,0 +1,37 @@
+Database-driven Webtechnology
+
+Project Group 08 Movie Database
+-Leon Graumans
+-Luuk Looijenga
+-Kamil Zukowski
+
+All files of our final application are located in the directory: "ddwt2015-project"
+There are a few subdirectory's within the main directory which are the following:
+
+-	css(contains the stylesheets and bootstrap)
+-	doc(contains our initial project proposal)
+-	fonts(contains the fonts)
+-	img(contains all images used)
+-	js(contains bootstrap and javascripts)
+-	uploads(contains uploaded profile pics by users)
+
+The rest of the directory "ddwt2015-project" contains .php files:
+
+-	account.php
+-	ak_php_img_lib_1.0.php
+-	config.ini.php
+-	index.php
+-	login.php
+-	logincheck.php
+-	logout.php
+-	register.php
+-	result.php
+-	users.php
+
+
+Installation:
+Copy the whole directory "ddwt2015-project" with all containing files to your server.
+Now you can type the adress of the server and directory and run the application.
+
+For example on this server:
+http://siegfried.webhosting.rug.nl/~s2548798/ddwt2015-project/index.php
