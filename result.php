@@ -1,3 +1,7 @@
+<?php 
+include('logincheck.php');
+$username=$_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +31,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php"><img alt="Poar Neem'n" src="img/pn.png"></a>
+      <a class="navbar-brand" href="index.php"><img alt="Poar Neem'n" src="img/pnwhite.png"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,18 +46,24 @@
         </div>
         <button type="submit" name="submit" value="Search" class="btn btn-default">Search</button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Watchlist</a></li>
+<?php if (($username) == '') { ?>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.php">Login</a></li>
+    </ul>     
+<? } else{ ?>
+    <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">View profile</a></li>
-            <li><a href="#">Account settings</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Logout</a></li>
-          </ul>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$username ?> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="account.php">View profile</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
         </li>
-      </ul>
+    </ul> 
+<? } ?>
+  
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -61,9 +71,13 @@
 <?
 include("config.ini.php");
 
+if ($_POST['name'] != "") {
+    $search=$_POST['name'];
+} else {
+    $search=$_GET['name'];
+}
 
-$search=$_POST['name']; 
-echo ($name);
+//$search = mysql_real_escape_string($_POST['name']);
 
 // get movies
 $m_query = "SELECT * FROM `movie_collection` 
@@ -76,17 +90,11 @@ $movie = mysql_query($m_query, $con);
 $movie_array = array();
 
 while($row = mysql_fetch_array($movie)) {
-    $movie_array[] = array('name'=>$row['title'], 'release'=>$row['year'], 'genre'=>$row['genre'], 'director'=>$row['director'], 'plot'=>$row['plot'], 'imgurl'=>$row['poster'],);
+    $movie_array[] = array('id'=>$row['id'],'name'=>$row['title'], 'release'=>$row['year'], 'genre'=>$row['genre'], 'director'=>$row['director'], 'plot'=>$row['plot'], 'imgurl'=>$row['poster'], 'rating'=>$row['rating']);
 } ?> 
 
-<div class="jumbotron">
-    <div class="container" id="searchresults">
-        <p>Results for: <?=$search?>.</p>
-        <p><a class="btn btn-primary btn-lg" href="index.php#movielist" role="button">All movies</a></p>
-    </div>
-</div>
-
 <div class="container"> 
+    <br><br><h2>Results in movies for: <?=$search?>.</h2>
 
 <?
 $c = 0;
@@ -94,30 +102,23 @@ $c = 0;
 foreach ($movie_array as $i) { 
     if ($c % 4 == 0) {
         echo "<div class=row>";
-    }
-    //$test = "http://ia.media-imdb.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_SX300.jpg";
-    //$test = $i['imgurl']; 
-    $test = "/img/darkknight.jpg" ?>
-
+    }?>
     <div class="col-sm-3">
-        <div class="thumbnail" data-toggle="modal" data-target="#myModal<? echo($c)?>">
-            <? if($row->poster == "N/A"){
-                echo '<img src="http://entertainment.ie/movie_trailers/trailers/flash/posterPlaceholder.jpg">'; 
-            } else {
-                echo '<img src="img/darkknight.jpg">';
-            } ?>
-            <div class="caption"><?php echo($i['name']) ?></div>
+        <div class="thumbnail" data-toggle="modal" data-target="#myModal<?=($count)?>">
+            <img src="img/poster/poster-<?=($i['id'])?>.jpg" class="roundimg"/>
+            <div class="caption"><?= ($i['name']) ?></div> 
         </div>
-        <div id="myModal<? echo($c)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="myModal<?=($count)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img src="img/darkknight.jpg" class="img-responsive"/>
-                        <h1><?php echo($i['name']) ?></h1>
-                        <p>Release: <?php echo($i['release']) ?>
-                        <br>Genre: <?php echo($i['genre']) ?>
-                        <br>Director: <?php echo($i['director']) ?>
-                        <br><br><?php echo($i['plot']) ?></p>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <img src="img/poster/poster-<?=($i['id'])?>.jpg" class="img-responsive"/>
+                        <h1><?= ($i['name']) ?></h1>
+                        <p>Release: <?= ($i['release']) ?>
+                        <br>Genre: <?= ($i['genre']) ?>
+                        <br>Director: <?= ($i['director']) ?>
+                        <br><br><?= ($i['plot']) ?></p>
                         <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
                     </div>
                 </div>
@@ -134,9 +135,64 @@ foreach ($movie_array as $i) {
 } ?>
 </div>
 
-  
+<?
+// get users
+$u_query = "SELECT * FROM `account` WHERE username COLLATE UTF8_GENERAL_CI LIKE '%{$search}%' order by username";
+$user = mysql_query($u_query);
+$user_array = array();
 
+while($row = mysql_fetch_array($user)) {
+    $user_array[] = array('username'=>$row['username'], 'firstname'=>$row['firstname'], 'lastname'=>$row['lastname'], 'file'=>$row['file'], 'watchlist'=>$row['watchlist']);
+} ?> 
 
+<div class="container" style="margin-top: 100px;"> 
+    <br><br><h2>Results in users for: <?=$search?>.</h2>
+
+<?
+$count = 0;
+foreach ($user_array as $i) { 
+    if ($count % 4 == 0) {
+        echo "<div class=row>";
+    } ?>
+    <div class="col-sm-3">
+        <div class="thumbnail" data-toggle="modal" data-target="#myModal<?=($count)?>">
+            <img src="<?= ($i['file']) ?>" class="roundimg"/>
+            <div class="caption"><?= ($i['username']) ?></div> 
+        </div>
+        <div id="myModal<?=($count)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                            <div class="row">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <img src="<?= ($i['file']) ?>" class="img-responsive"/>
+                                <div class="col-sm-6">
+                                    <h1><?= ($i['username']) ?></h1>
+                                    <p><?= ($i['firstname'])." ".($i['lastname']) ?></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h1>Watchlist</h1> 
+                                    <form role="search" method="post" action="result.php" name="searchmovie" id="searchmovie">
+                                    <?
+                                    $watchlist = explode(";", $i['watchlist']);
+                                    foreach ($watchlist as $w) { ?>
+                                        <a href="result.php?name=<?=($w)?>" value="<?=($w)?>" name="name" id="name" onclick="document.forms['searchmovie'].submit();"><?=($w)?></a><br>
+                                    <? } ?>
+                                    </form> 
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <? 
+    $count ++;
+    if ($count % 4 == 0) {
+        echo "</div>";
+    } 
+} ?>
+</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

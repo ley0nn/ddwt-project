@@ -1,4 +1,8 @@
-/* Own CSS file */
+/* Own CSS file 
+
+body {
+	color: #555;
+}*/
 
 .col-centered{
     float: none;
@@ -19,4 +23,55 @@
 
 #searchresults p{
 	margin: 50px auto 0 auto;
+}
+
+.roundimg {
+	border-radius: 4px;
+}
+
+.img-responsive {
+	border-radius: 4px;
+}
+
+.respons {
+	margin: 0 auto;
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.registration {
+	margin-top: 100px;
+}
+
+.close{
+	padding-bottom: 10px;
+}
+
+/* FILE UPLOAD BUTTON */
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
 }

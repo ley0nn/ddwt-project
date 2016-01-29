@@ -2,6 +2,7 @@
 include('logincheck.php');
 $username=$_SESSION['username'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,14 +32,14 @@ $username=$_SESSION['username'];
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php"><img alt="Poar Neem'n" src="img/pnwhite.png"></a>
+      <a class="navbar-brand" href="index.php"><img alt="Poar Neem'n" src="img/pn.png"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="index.php">Movies</a></li>
-        <li class="active"><a href="users.php">Users <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="index.php">Movies <span class="sr-only">(current)</span></a></li>
+        <li><a href="users.php">Users</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search" method="post" action="result.php" id="searchform">
         <div class="form-group">
@@ -71,8 +72,16 @@ $username=$_SESSION['username'];
 <?
 include("config.ini.php");
 
-// get users
-$u_query = "SELECT * FROM `account` order by username ";
+if($_GET['add'] != ''){
+    $newmovie = $_GET['add'];
+    mysql_query("UPDATE account SET watchlist=CONCAT(watchlist,'$newmovie') WHERE username='$username'");
+    mysql_query("UPDATE account SET watchlist=CONCAT(watchlist,';') WHERE username='$username'");
+}
+unset($_GET['add']);
+
+
+// get info
+$u_query = "SELECT * FROM `account` WHERE username='$username' ";
 $user = mysql_query($u_query);
 $user_array = array();
 
@@ -83,50 +92,31 @@ while($row = mysql_fetch_array($user)) {
 <div class="container" style="margin-top: 100px;"> 
 
 <?
-$count = 0;
-foreach ($user_array as $i) { 
-    if ($count % 4 == 0) {
-        echo "<div class=row>";
-    } ?>
-    <div class="col-sm-3">
-        <div class="thumbnail" data-toggle="modal" data-target="#myModal<?=($count)?>">
-            <img src="<?= ($i['file']) ?>" class="roundimg"/>
-            <div class="caption"><?= ($i['username']) ?></div> 
+
+foreach ($user_array as $i) { ?>
+    <div class="container center">
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="<?= ($i['file']) ?>" class="img-responsive"/>
+            <h1><?= ($i['username']) ?></h1>
+            <p><?= ($i['firstname'])." ".($i['lastname']) ?></p>
         </div>
-        <div id="myModal<?=($count)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                            <div class="row">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <img src="<?= ($i['file']) ?>" class="img-responsive"/>
-                                <div class="col-sm-6">
-                                    <h1><?= ($i['username']) ?></h1>
-                                    <p><?= ($i['firstname'])." ".($i['lastname']) ?></p>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h1>Watchlist</h1> 
-                                    <form role="search" method="post" action="result.php" name="searchmovie" id="searchmovie">
-                                    <?
-                                    $watchlist = explode(";", $i['watchlist']);
-                                    foreach ($watchlist as $w) { ?>
-                                        <a href="result.php?name=<?=($w)?>" value="<?=($w)?>" name="<?=($w)?>" id="<?=($w)?>" onclick="document.forms['searchmovie'].submit();"><?=($w)?></a><br>
-                                    <? } ?>
-                                    </form> 
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-6">
+            <h2>Watchlist</h2>
+            <form role="search" method="post" action="result.php" name="searchmovie" id="searchmovie">
+            <?
+            $watchlist = explode(";", $i['watchlist']);
+            foreach ($watchlist as $w) { ?>
+                <a href="result.php?name=<?=($w)?>" value="<?=($w)?>" name="name" id="name" onclick="document.forms['searchmovie'].submit();"><?=($w)?></a><br>
+            <? } ?>
+            </form> 
         </div>
     </div>
-    <? 
-    $count ++;
-    if ($count % 4 == 0) {
-        echo "</div>";
-    } 
-} ?>
 </div>
+<? } ?>
+
+   
+  
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

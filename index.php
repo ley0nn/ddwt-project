@@ -1,3 +1,8 @@
+<?php 
+include('logincheck.php');
+$username=$_SESSION['username'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,30 +47,28 @@
         </div>
         <button type="submit" name="submit" value="Search" class="btn btn-default">Search</button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Watchlist <span class="badge">4</span></a></li>
+    
+<?php if (($username) == '') { ?>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.php">Login</a></li>
+    </ul>     
+<? } else{ ?>
+    <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">View profile</a></li>
-            <li><a href="#">Account settings</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Logout</a></li>
-          </ul>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$username ?> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="account.php">View profile</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
         </li>
-      </ul>
+    </ul> 
+<? } ?>
+  
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-<div class="jumbotron">
-    <div class="container">
-        <h1>Header</h1>
-        <p>Tekst.</p>
-        <p><a class="btn btn-primary btn-lg" href="#movielist" role="button">View movies</a></p>
-        <div id="movielist"></div>
-    </div>
-</div>
 
 <?
 include("config.ini.php");
@@ -76,41 +79,36 @@ $movie = mysql_query($m_query);
 $movie_array = array();
 
 while($row = mysql_fetch_array($movie)) {
-    $movie_array[] = array('name'=>$row['title'], 'release'=>$row['year'], 'genre'=>$row['genre'], 'director'=>$row['director'], 'plot'=>$row['plot'], 'imgurl'=>$row['poster'],);
+    $movie_array[] = array('id'=>$row['id'],'name'=>$row['title'], 'release'=>$row['year'], 'genre'=>$row['genre'], 'director'=>$row['director'], 'plot'=>$row['plot'], 'imgurl'=>$row['poster'], 'rating'=>$row['rating']);
 } ?> 
 
-<div class="container"> 
+<div class="container" style="margin-top: 100px;"> 
 
 <?
 $count = 0;
 foreach ($movie_array as $i) { 
+    //file_put_contents("img/poster/poster-".$i['id'].".jpg", fopen($i['imgurl'], 'r'));
     if ($count % 4 == 0) {
         echo "<div class=row>";
-    } 
-    //<img src="'.$i['imgurl'].'" />
-    //($i['imgurl']) 
-    $darkknight = "img/darkknight.jpg";
-    ?>
+    }?>
     <div class="col-sm-3">
         <div class="thumbnail" data-toggle="modal" data-target="#myModal<?=($count)?>">
-            <? if($row->poster == "N/A"){
-                echo '<img src="http://entertainment.ie/movie_trailers/trailers/flash/posterPlaceholder.jpg">'; 
-            } else {
-                echo '<img src="'.$darkknight.'" />';
-            } ?>
-            <div class="caption"><?= ($i['name']) ?></div>
+            <img src="img/poster/poster-<?=($i['id'])?>.jpg" class="roundimg"/>
+            <div class="caption"><?= ($i['name']) ?></div> 
         </div>
         <div id="myModal<?=($count)?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img src="<?= ($darkknight) ?>" class="img-responsive"/>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <img src="img/poster/poster-<?=($i['id'])?>.jpg" class="img-responsive"/>
                         <h1><?= ($i['name']) ?></h1>
-                        <p>Release: <?= ($i['release']) ?>
+                        <p>Director: <?= ($i['director']) ?>
                         <br>Genre: <?= ($i['genre']) ?>
-                        <br>Director: <?= ($i['director']) ?>
-                        <br><br><?= ($i['plot']) ?></p>
-                        <p><a href="#" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        <br>Release: <?= ($i['release']) ?></p>
+                        <p><?= ($i['plot']) ?></p>
+                        <p><a href="account.php?add=<?= ($i['name']) ?>" class="btn btn-default" role="button">+ Watchlist</a></p>
+                        
                     </div>
                 </div>
             </div>
