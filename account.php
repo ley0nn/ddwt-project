@@ -32,7 +32,7 @@ $username=$_SESSION['username'];
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php"><img alt="Poar Neem'n" src="img/pn.png"></a>
+      <a class="navbar-brand" href="index.php"><img alt="Poar Neem'n" src="img/pnwhite.png"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -76,6 +76,7 @@ if($_GET['add'] != ''){
     $newmovie = $_GET['add'];
     mysql_query("UPDATE account SET watchlist=CONCAT(watchlist,'$newmovie') WHERE username='$username'");
     mysql_query("UPDATE account SET watchlist=CONCAT(watchlist,';') WHERE username='$username'");
+    header('Location: account.php');
 }
 unset($_GET['add']);
 

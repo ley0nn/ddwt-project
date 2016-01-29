@@ -18,12 +18,12 @@
 			//Otherwise echo error.
 			if(mysql_num_rows($result) == 1)
 			{	
-				echo "ingelogd!";
 				$_SESSION['username'] = $username; // Initializing Session
 				header("location: index.php"); // Redirecting To Other Page
 			}else
 			{
-				echo "niet gelukt!";
+				echo "Wrong username and/or password. You will be redirected in five seconds.";
+				header( "refresh:5; url=login.php" ); 
 				//$error = "Incorrect username or password.";
 			}
 
